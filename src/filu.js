@@ -142,8 +142,7 @@ function keyDown(e) {
 }
 
 function show(){
-    var sizeElement = document.getElementById('sizeElement');
-    var canvasElement = document.getElementById('canvas');
+    var canvasElement = document.getElementById('filu');
     if (canvasElement.getContext) {
       canvas = canvasElement.getContext('2d');
     }
@@ -154,7 +153,6 @@ function show(){
     interval = setInterval(() => {
         draw();
         targetHit();
-        sizeElement.innerHTML = filuSize;
 
         if(hitFilu() || hitBoundary()) {                        
             clearInterval(interval);
@@ -164,3 +162,5 @@ function show(){
         }
     }, 115);    
 }   
+
+show();
