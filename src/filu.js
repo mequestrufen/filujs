@@ -142,7 +142,11 @@ function keyDown(e) {
 }
 
 function show(){
-    var canvasElement = document.getElementById('filu');
+    let canvasElement = document.createElement("canvas");
+    canvasElement.setAttribute('width', '600');
+    canvasElement.setAttribute('height', '600');    
+    document.body.appendChild(canvasElement);
+
     if (canvasElement.getContext) {
       canvas = canvasElement.getContext('2d');
     }
