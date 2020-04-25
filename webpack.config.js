@@ -6,4 +6,5 @@ module.exports = {
     filename: 'filu.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  devtool: 'eval-source-map'
 };

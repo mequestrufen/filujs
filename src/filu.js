@@ -1,3 +1,5 @@
+import { bot } from './bot';
+
 var canvas;
 var squareSize = 30;
 var backgroundColor = '#070707';
@@ -158,6 +160,14 @@ function show(){
         draw();
         targetHit();
 
+        var move = {
+            code: ''
+        };
+
+        move.code = bot(target, head);
+
+        keyDown(move);
+
         if(hitFilu() || hitBoundary()) {                        
             clearInterval(interval);
 
@@ -168,3 +178,4 @@ function show(){
 }   
 
 show();
+console.log(bot);
