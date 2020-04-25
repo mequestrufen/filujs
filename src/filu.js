@@ -1,10 +1,7 @@
 import { bot } from './bot';
+import { Canvas } from './canvas';
 
-var canvas;
-var squareSize = 30;
-var backgroundColor = '#070707';
 var interval;
-
 var boundarySize = 20;
 
 var direction = 'S';
@@ -22,13 +19,6 @@ var target = {
 var filu = []
 
 document.addEventListener('keydown', keyDown);
-
-function setCanvas(canvasElement) {
-    canvas.fillStyle = backgroundColor;
-    canvas.fillRect(0, 0, canvasElement.width, canvasElement.height);
-
-    canvas.font = '48px menlo';
-}
 
 function draw() {
     switch (direction) {
@@ -55,37 +45,24 @@ function draw() {
     };
 
     filu.push(item);    
-    drawSquare(head.x, head.y, 'gray');     
+    Canvas.drawSquare(head.x, head.y, 'gray');     
     
     if(filu.length > filuSize) {
-        eraseSquare(filu[0].x, filu[0].y)
+        Canvas.eraseSquare(filu[0].x, filu[0].y)
         filu = filu.slice(1);
     }
-}
-
-function drawSquare(x, y, color) {
-    canvas.fillStyle = color;
-    canvas.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
-
-    canvas.fillStyle = backgroundColor;
-    canvas.strokeRect(x * squareSize, y * squareSize, squareSize, squareSize);
-}
-
-function eraseSquare(x, y) {
-    canvas.fillStyle = backgroundColor;
-    canvas.fillRect(x * squareSize, y * squareSize, squareSize, squareSize);
 }
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function drawTarget() {
+function food() {
     do {
         target.x = getRandomInt(20);
         target.y = getRandomInt(20);
     } while (isInFilu());
-    drawSquare(target.x, target.y, 'green');
+    Canvas.drawSquare(target.x, target.y, 'green');
 }
 
 function isInFilu(x, y) {
@@ -119,7 +96,7 @@ function hitBoundary() {
 function targetHit() {
     if(head.x === target.x && head.y === target.y) {
         filuSize++;
-        drawTarget();
+        food();
     }    
 }
 
@@ -144,17 +121,9 @@ function keyDown(e) {
 }
 
 function show(){
-    let canvasElement = document.createElement("canvas");
-    canvasElement.setAttribute('width', '600');
-    canvasElement.setAttribute('height', '600');    
-    document.body.appendChild(canvasElement);
+    Canvas.init();
 
-    if (canvasElement.getContext) {
-      canvas = canvasElement.getContext('2d');
-    }
-    
-    setCanvas(canvasElement);
-    drawTarget();
+    food();
 
     interval = setInterval(() => {
         draw();
@@ -171,8 +140,7 @@ function show(){
         if(hitFilu() || hitBoundary()) {                        
             clearInterval(interval);
 
-            canvas.fillStyle = 'red';
-            canvas.fillText('Fail!', 10, 50);
+            Canvas.printFail();
         }
     }, 115);    
 }   
