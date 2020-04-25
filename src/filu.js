@@ -1,5 +1,4 @@
-var Canvas = require('./canvas');
-
+import { Canvas } from './canvas';
 var interval;
 var boundarySize = 20;
 

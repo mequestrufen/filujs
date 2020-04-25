@@ -1,9 +1,8 @@
-
 var context;
 const squareSize = 30;
 const backgroundColor = '#070707';
 
-export default Canvas = {    
+var Canvas = {    
     init: () => {
         let canvasElement = document.createElement("canvas");
         canvasElement.setAttribute('width', '600');
@@ -32,3 +31,5 @@ export default Canvas = {
         context.fillText('Fail!', 10, 50);
     }
 };
+
+export { Canvas };
