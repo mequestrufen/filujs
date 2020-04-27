@@ -146,4 +146,3 @@ function show(){
 }   
 
 show();
-console.log(bot);
