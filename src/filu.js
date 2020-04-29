@@ -4,11 +4,13 @@ import { Canvas } from './canvas';
 var interval;
 var boundarySize = 20;
 
-var direction = 'S';
+var direction = 'N';
 var filuSize = 3;
+var growthFactor = 1;
+
 var head = {
     x: 10,
-    y: 10   
+    y: 15   
 };
 
 var target = {
@@ -38,19 +40,14 @@ function draw() {
             head.x++;
             break;
     }
-
-    var item = {
-        x: head.x,
-        y: head.y
-    };
-
-    filu.push(item);    
-    Canvas.drawSquare(head.x, head.y, 'gray');     
+    filu.push({x: head.x, y: head.y});    
     
     if(filu.length > filuSize) {
         Canvas.eraseSquare(filu[0].x, filu[0].y)
         filu = filu.slice(1);
     }
+
+    Canvas.drawSquare(head.x, head.y, 'gray', direction);     
 }
 
 function getRandomInt(max) {
@@ -66,12 +63,14 @@ function food() {
 }
 
 function isInFilu(x, y) {
+    let res = false;
     filu.forEach((item) => {
         if(item.x === target.x && item.y === target.y) {
-            return true;
+            console.log('found');
+            res = true;
         }
-    })
-    return false;
+    });
+    return res;
 }
 
 function log(x, y) {
@@ -95,7 +94,7 @@ function hitBoundary() {
 
 function targetHit() {
     if(head.x === target.x && head.y === target.y) {
-        filuSize++;
+        filuSize = filuSize + growthFactor;
         food();
     }    
 }
@@ -120,29 +119,29 @@ function keyDown(e) {
     }
 }
 
+function agent() {
+    let code = bot(target, head);
+    keyDown({code});
+}
+
 function show(){
     Canvas.init();
 
     food();
 
-    interval = setInterval(() => {
+    interval = setInterval(() => {           
+        //agent();
         draw();
         targetHit();
+        
+        Canvas.dashboard(head, filuSize, filu);
 
-        var move = {
-            code: ''
-        };
-
-        move.code = bot(target, head);
-
-        keyDown(move);
-
+        //Collision
         if(hitFilu() || hitBoundary()) {                        
             clearInterval(interval);
-
             Canvas.printFail();
         }
-    }, 115);    
+    }, 125);    
 }   
 
 show();
