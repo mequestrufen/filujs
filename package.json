@@ -1,7 +1,7 @@
 {
   "name": "filujs",
   "version": "1.0.0",
-  "description": "Filu JS is an implementation of the Snake gane intended to display and be controlled by human or machine algorithm.",
+  "description": "Filu JS is an implementation of the Snake game intended to display and be controlled by human or machine algorithm.",
   "main": "index.js",
   "author": "Felipe Gómez <fgomez@thoughtworks.com>",
   "license": "MIT",
