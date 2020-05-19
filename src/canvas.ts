@@ -19,7 +19,7 @@ var Canvas = {
         context.fillStyle = arenaColor;
         context.fillRect(0, 200, canvasElement.width, canvasElement.height);
     },
-    drawSquare: (x, y, color, dir) => {
+    drawSquare: (x, y, color, dir?) => {
         context.fillStyle = color;
 
         switch (dir) {

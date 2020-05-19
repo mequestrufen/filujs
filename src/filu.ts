@@ -62,7 +62,7 @@ function food() {
     Canvas.drawSquare(target.x, target.y, 'green');
 }
 
-function isInFilu(x, y) {
+function isInFilu() {
     let res = false;
     filu.forEach((item) => {
         if(item.x === target.x && item.y === target.y) {
@@ -71,10 +71,6 @@ function isInFilu(x, y) {
         }
     });
     return res;
-}
-
-function log(x, y) {
-    console.log('x: ' + x + ' / y: ' + y);
 }
 
 function hitFilu() {
@@ -141,7 +137,6 @@ function show(){
             clearInterval(interval);
             Canvas.printFail();
         }
-    }, 125);    
+    }, 200);    
 }   
-
 show();
