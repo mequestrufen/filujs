@@ -27,6 +27,7 @@ export class Game {
     private _body: Array<Point>;
     
     private _target: Point;
+    private _alive: boolean = true;
 
     get length(): number {
         return this._body.length;
@@ -42,6 +43,10 @@ export class Game {
 
     get target(): Point {
         return this._target;
+    }
+
+    get isAlive(): boolean {
+        return this._alive;
     }
 
     constructor() {       
@@ -83,6 +88,8 @@ export class Game {
         if (this._head.x === this._target.x && this._head.y === this._target.y) {
             this.size++;
         }
+
+        this._alive = this.hitFilu();
     }
 
     left() {
@@ -103,5 +110,15 @@ export class Game {
 
     food(x: number, y: number) {        
         this._target = new Point(x, y);
+    }
+
+    private hitFilu() {        
+        let dupl = 0; 
+        this._body.forEach((item) => {
+            if(item.x === this._head.x && item.y === this._head.y) {
+                dupl++;
+            }
+        });
+        return (dupl === 2);    
     }
 };

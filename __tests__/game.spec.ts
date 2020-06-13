@@ -74,3 +74,19 @@ test('The snake body should grow one cell after getting food', () => {
     expect(game.length).toEqual(2);
     expect(game.body).toEqual([{x: 10, y: 9}, {x:10, y:8}]);
 });
+
+test('The snake dies when hits itself', () => {
+    let game = new Game();
+    game.food(10, 9);
+    game.step();
+    game.food(9, 9);
+    game.left();
+    game.step();
+    game.food(9, 10);    
+    game.down();
+    game.step();
+    game.right();
+    game.step();
+    
+    expect(game.isAlive).toBeFalsy();
+});
