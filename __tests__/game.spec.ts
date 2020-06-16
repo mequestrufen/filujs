@@ -7,9 +7,6 @@ test('Initialize the snake with a length of 1', () => {
 
 test('The snake must start at (10, 10)', () => {
     let game = new Game();
-    expect(game.head.x).toEqual(10);
-    expect(game.head.y).toEqual(10);
-
     expect(game.head).toEqual({x: 10, y: 10, direction: Direction.UP});
 });
 
@@ -76,17 +73,23 @@ test('The snake body should grow one cell after getting food', () => {
 });
 
 test('The snake dies when hits itself', () => {
-    let game = new Game();
-    game.food(10, 9);
-    game.step();
-    game.food(9, 9);
-    game.left();
-    game.step();
-    game.food(9, 10);    
-    game.down();
-    game.step();
-    game.right();
+    let game = new Game();    
     game.step();
     
+    game.food(10, 8);
+    game.step();
+
+    game.food(9, 8);
+    game.left();
+    game.step()
+
+    game.food(9, 9);
+    game.down();
+    game.step();
+
+    game.food(9, 10);
+    game.right();
+    game.step();
+        
     expect(game.isAlive).toBeFalsy();
 });

@@ -54,7 +54,7 @@ export class Game {
         this._body = new Array();
         this._body.push(startPoint);
         this._head = {x: startPoint.x, y: startPoint.y, direction: Direction.UP};
-        this._target = new Point(9, 10); //new random target
+        this._target = new Point(10, 9); //new random target
     }
 
     step() {
@@ -76,6 +76,10 @@ export class Game {
                 break;
         }
 
+        if (this._head.x === this._target.x && this._head.y === this._target.y) {
+            this.size++;
+        }
+
         this._body.push(new Point(this._head.x, this._head.y));
 
         if(this._body.length > this.size) {
@@ -83,13 +87,7 @@ export class Game {
             this._body = this._body.slice(1);
         }
     
-        // Draw square HERE
-
-        if (this._head.x === this._target.x && this._head.y === this._target.y) {
-            this.size++;
-        }
-
-        this._alive = this.hitFilu();
+        this._alive = !this.hitFilu();
     }
 
     left() {
@@ -110,6 +108,10 @@ export class Game {
 
     food(x: number, y: number) {        
         this._target = new Point(x, y);
+    }
+
+    private eat() {
+        
     }
 
     private hitFilu() {        
