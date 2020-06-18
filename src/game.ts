@@ -21,7 +21,9 @@ class Point {
     }
 };
 
-export class Game {    
+export const BOUNDARY: number = 20;  
+
+export class Game {  
     private size = 1;
     private _head: Head;
     private _body: Array<Point>;
@@ -78,16 +80,16 @@ export class Game {
 
         if (this._head.x === this._target.x && this._head.y === this._target.y) {
             this.size++;
+            this.food();
         }
 
         this._body.push(new Point(this._head.x, this._head.y));
 
         if(this._body.length > this.size) {
-            //erase square HERE
             this._body = this._body.slice(1);
         }
-    
-        this._alive = !this.hitFilu();
+
+        this._alive = !(this.hitBoundary() || this.hitItself());
     }
 
     left() {
@@ -106,15 +108,21 @@ export class Game {
         this._head.direction = Direction.UP;
     }
 
-    food(x: number, y: number) {        
-        this._target = new Point(x, y);
+    food(x?: number, y?: number) {     
+        if (x && y) {
+            this._target = new Point(x, y);
+        } else {
+            do {
+                this._target = new Point(this.getRandomInt(BOUNDARY), this.getRandomInt(BOUNDARY));
+            } while (this.isInBody());
+        }   
     }
 
-    private eat() {
-        
+    private getRandomInt(max: number) {
+        return Math.floor(Math.random() * Math.floor(max));
     }
 
-    private hitFilu() {        
+    private hitItself() {        
         let dupl = 0; 
         this._body.forEach((item) => {
             if(item.x === this._head.x && item.y === this._head.y) {
@@ -122,5 +130,19 @@ export class Game {
             }
         });
         return (dupl === 2);    
+    }
+
+    private hitBoundary() {
+        return (this._head.x < 0 || this._head.x > BOUNDARY -1 || this._head.y < 0 || this._head.y > BOUNDARY -1);
+    }
+
+    private isInBody() {
+        let res = false;
+        this._body.forEach((item) => {
+            if(item.x === this._target.x && item.y === this._target.y) {
+                res = true;
+            }
+        });
+        return res;
     }
 };
