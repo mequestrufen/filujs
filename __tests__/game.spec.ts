@@ -117,3 +117,23 @@ test('The snake food appears randomly in free space and not in space occupied by
     expect(game.target).not.toEqual({x: 10, y: 10});
     expect(game.target).not.toEqual({x: 10, y: 9});
 });
+
+test('The snake onStep callback attached to step event run once when step is invoked', () => {
+    let game = new Game();
+    let onStep = jest.fn();
+
+    game.on('step', onStep);
+    game.step();
+
+    expect(onStep).toBeCalledTimes(1);
+});
+
+test('The snake onFood callback attached to food event run once when food is invoked', () => {
+    let game = new Game();
+    let onFood = jest.fn();
+
+    game.on('food', onFood);
+    game.food();
+
+    expect(onFood).toBeCalledTimes(1);
+});

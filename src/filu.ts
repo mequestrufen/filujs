@@ -81,7 +81,7 @@ function hitFilu() {
             dupl++;
         }
     });
-    return (dupl === 2);    
+    return (dupl === 2);
 }
 
 function hitBoundary() {

@@ -1,3 +1,5 @@
+import events from 'events';
+
 type Head = {
     x: number,
     y: number,
@@ -23,7 +25,7 @@ class Point {
 
 export const BOUNDARY: number = 20;  
 
-export class Game {  
+export class Game extends events.EventEmitter {  
     private size = 1;
     private _head: Head;
     private _body: Array<Point>;
@@ -52,11 +54,12 @@ export class Game {
     }
 
     constructor() {       
+        super();
         let startPoint = new Point(10, 10); 
         this._body = new Array();
         this._body.push(startPoint);
         this._head = {x: startPoint.x, y: startPoint.y, direction: Direction.UP};
-        this._target = new Point(10, 9); //new random target
+        this._target = new Point(10, 9); //new random target        
     }
 
     step() {
@@ -90,6 +93,8 @@ export class Game {
         }
 
         this._alive = !(this.hitBoundary() || this.hitItself());
+
+        this.emit('step');        
     }
 
     left() {
@@ -116,6 +121,8 @@ export class Game {
                 this._target = new Point(this.getRandomInt(BOUNDARY), this.getRandomInt(BOUNDARY));
             } while (this.isInBody());
         }   
+        
+        this.emit('food');
     }
 
     private getRandomInt(max: number) {
