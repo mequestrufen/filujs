@@ -74,6 +74,7 @@ test('The snake body should grow one cell after getting food', () => {
 
 test('The snake dies when hits itself', () => {
     let game = new Game();    
+    game.food(10, 9);    
     game.step();
     
     game.food(10, 8);
@@ -129,11 +130,34 @@ test('The snake onStep callback attached to step event run once when step is inv
 });
 
 test('The snake onFood callback attached to food event run once when food is invoked', () => {
-    let game = new Game();
+    let game = new Game(); 
     let onFood = jest.fn();
 
     game.on('food', onFood);
     game.food();
 
     expect(onFood).toBeCalledTimes(1);
+});
+
+test('The snake onErase callback attached to erase event run once when step is invoked and snake did not hit a food', () => {
+    let game = new Game();
+    let onErase = jest.fn();
+
+    game.on('erase', onErase);
+    game.step();
+
+    expect(onErase).toBeCalledTimes(1);
+});
+
+test('The snake onErase callback attached to erase event does not run when step is invoked and snake hits a food', () => {
+    let game = new Game();
+    let onErase = jest.fn();
+
+    game.on('erase', onErase);
+    game.food(10, 9);
+    game.step();
+
+    console.table(game.body);
+
+    expect(onErase).not.toBeCalled();
 });

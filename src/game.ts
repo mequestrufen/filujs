@@ -59,8 +59,8 @@ export class Game extends events.EventEmitter {
         this._body = new Array();
         this._body.push(startPoint);
         this._head = {x: startPoint.x, y: startPoint.y, direction: Direction.UP};
-        this._target = new Point(10, 9); //new random target        
-    }
+        this.food();
+    }     
 
     step() {
         switch (this._head.direction) {
@@ -89,7 +89,8 @@ export class Game extends events.EventEmitter {
         this._body.push(new Point(this._head.x, this._head.y));
 
         if(this._body.length > this.size) {
-            this._body = this._body.slice(1);
+            this._body = this._body.slice(1);            
+            this.emit('erase');
         }
 
         this._alive = !(this.hitBoundary() || this.hitItself());
