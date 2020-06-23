@@ -157,7 +157,5 @@ test('The snake onErase callback attached to erase event does not run when step 
     game.food(10, 9);
     game.step();
 
-    console.table(game.body);
-
     expect(onErase).not.toBeCalled();
 });

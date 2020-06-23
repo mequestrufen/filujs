@@ -89,13 +89,13 @@ export class Game extends events.EventEmitter {
         this._body.push(new Point(this._head.x, this._head.y));
 
         if(this._body.length > this.size) {
-            this._body = this._body.slice(1);            
+            this._body = this._body.slice(1);
             this.emit('erase');
         }
 
         this._alive = !(this.hitBoundary() || this.hitItself());
 
-        this.emit('step');        
+        this.emit('step');
     }
 
     left() {
