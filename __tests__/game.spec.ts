@@ -1,4 +1,4 @@
-import { Game, Direction } from "../src/game";
+import { Game, Direction, LOWER_RIGHT_LIMIT, UPPER_LEFT_LIMIT } from "../src/game";
 
 test('Initialize the snake with a length of 1', () => {    
     let game = new Game();
@@ -109,11 +109,11 @@ test('The snake food appears randomly in free space and not in space occupied by
     let game = new Game();
     game.step();
 
-    expect(game.target.x).toBeGreaterThan(0);
-    expect(game.target.x).toBeLessThan(20);
+    expect(game.target.x).toBeGreaterThan(UPPER_LEFT_LIMIT);
+    expect(game.target.x).toBeLessThan(LOWER_RIGHT_LIMIT);
 
-    expect(game.target.y).toBeGreaterThan(0);
-    expect(game.target.y).toBeLessThan(20);
+    expect(game.target.y).toBeGreaterThan(UPPER_LEFT_LIMIT);
+    expect(game.target.y).toBeLessThan(LOWER_RIGHT_LIMIT);
 
     expect(game.target).not.toEqual({x: 10, y: 10});
     expect(game.target).not.toEqual({x: 10, y: 9});

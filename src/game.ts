@@ -21,7 +21,8 @@ export class Head extends Point {
     direction: Direction;
 };
 
-export const BOUNDARY: number = 20;  
+export const LOWER_RIGHT_LIMIT: number = 20;  
+export const UPPER_LEFT_LIMIT = -1;
 
 export class Game extends events.EventEmitter {  
     private size = 1;
@@ -117,7 +118,7 @@ export class Game extends events.EventEmitter {
             this._target = new Point(x, y);
         } else {
             do {
-                this._target = new Point(this.getRandomInt(BOUNDARY), this.getRandomInt(BOUNDARY));
+                this._target = new Point(this.getRandomInt(LOWER_RIGHT_LIMIT), this.getRandomInt(LOWER_RIGHT_LIMIT));
             } while (this.isInBody());
         }   
         
@@ -139,7 +140,7 @@ export class Game extends events.EventEmitter {
     }
 
     private hitBoundary() {
-        return (this._head.x < 0 || this._head.x > BOUNDARY -1 || this._head.y < 0 || this._head.y > BOUNDARY -1);
+        return (this._head.x < 0 || this._head.x > LOWER_RIGHT_LIMIT -1 || this._head.y < 0 || this._head.y > LOWER_RIGHT_LIMIT -1);
     }
 
     private isInBody() {
