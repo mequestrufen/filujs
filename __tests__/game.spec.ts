@@ -1,4 +1,4 @@
-import { Game, Direction} from "../src/game";
+import { Game, Direction } from "../src/game";
 
 test('Initialize the snake with a length of 1', () => {    
     let game = new Game();

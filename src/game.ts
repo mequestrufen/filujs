@@ -1,11 +1,5 @@
 import events from 'events';
 
-type Head = {
-    x: number,
-    y: number,
-    direction: Direction
-};
-
 export enum Direction {
     LEFT,
     RIGHT,
@@ -13,14 +7,18 @@ export enum Direction {
     DOWN
 };
 
-class Point {
+export class Point {
     x: number;
     y: number;
-
+    
     constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
     }
+};
+
+export class Head extends Point {
+    direction: Direction;
 };
 
 export const BOUNDARY: number = 20;  
