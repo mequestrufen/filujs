@@ -1,3 +1,5 @@
+import { Direction, Point, Head } from '../src/game';
+
 var context;
 const squareSize = 30;
 const backgroundColor = '#070707';
@@ -19,34 +21,34 @@ var Canvas = {
         context.fillStyle = arenaColor;
         context.fillRect(0, 200, canvasElement.width, canvasElement.height);
     },
-    drawSquare: (x, y, color, dir?) => {
+    drawSquare: (head: Head, color: string) => {
         context.fillStyle = color;
 
-        switch (dir) {
-            case 'N':
-                context.fillRect((x * squareSize) + offset_x +1, (y * squareSize) + offset_y +1, squareSize -2, squareSize);
+        switch (head.direction) {
+            case Direction.UP:
+                context.fillRect((head.x * squareSize) + offset_x +1, (head.y * squareSize) + offset_y +1, squareSize -2, squareSize);
                 break;
 
-            case 'S':
-                context.fillRect((x * squareSize) + offset_x +1, (y * squareSize) + offset_y -1, squareSize -2, squareSize);
+            case Direction.DOWN:
+                context.fillRect((head.x * squareSize) + offset_x +1, (head.y * squareSize) + offset_y -1, squareSize -2, squareSize);
                 break;
             
-            case 'E':
-                context.fillRect((x * squareSize) + offset_x -1, (y * squareSize) + offset_y +1, squareSize, squareSize -2);
+            case Direction.RIGHT:
+                context.fillRect((head.x * squareSize) + offset_x -1, (head.y * squareSize) + offset_y +1, squareSize, squareSize -2);
                 break;
 
-            case 'O':
-                context.fillRect((x * squareSize) + offset_x +1, (y * squareSize) + offset_y +1, squareSize, squareSize -2);
+            case Direction.LEFT:
+                context.fillRect((head.x * squareSize) + offset_x +1, (head.y * squareSize) + offset_y +1, squareSize, squareSize -2);
                 break;
 
             default:
-                context.fillRect((x * squareSize) + offset_x +1, (y * squareSize) + offset_y +1, squareSize -2, squareSize -2);
+                context.fillRect((head.x * squareSize) + offset_x +1, (head.y * squareSize) + offset_y +1, squareSize -2, squareSize -2);
                 break;
         }
     },
-    eraseSquare: (x, y) => {
+    eraseSquare: (point: Point) => {
         context.fillStyle = arenaColor;
-        context.fillRect(x * squareSize + offset_x -1, y * squareSize + offset_y -1, squareSize +2, squareSize +2);
+        context.fillRect(point.x * squareSize + offset_x -1, point.y * squareSize + offset_y -1, squareSize +2, squareSize +2);
     },
     printFail: () => {
         context.font = '48px menlo';
