@@ -55,15 +55,14 @@ var Canvas = {
         context.fillStyle = 'red';
         context.fillText('Fail!', 200, 50);
     },
-    dashboard: (head, size, filu) => {
+    dashboard: (head: Head, size: number) => {
         context.fillStyle = backgroundColor;
         context.fillRect(0, 0, 810, 200);
         context.font = '20px menlo';
         context.fillStyle = 'green';
 
         context.fillText(`head: (${head.x},${head.y})`, 10, 30);
-        context.fillText(`size: ${size}`, 10, 60);
-        context.fillText(`tail: (${filu[0].x}, ${filu[0].y})`, 10, 90);
+        context.fillText(`size: ${size}`, 10, 60);        
     }
 };
 

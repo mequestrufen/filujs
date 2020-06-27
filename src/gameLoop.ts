@@ -51,6 +51,8 @@ export class GameLoop {
 
         this.loop = setInterval(() => {
             this.game.step();
+
+            Canvas.dashboard(this.game.head, this.game.length);
             
             if (!this.game.isAlive) {
                 clearInterval(this.loop);

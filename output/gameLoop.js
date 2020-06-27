@@ -40,6 +40,7 @@ class GameLoop {
         this.game.food();
         this.loop = setInterval(() => {
             this.game.step();
+            canvas_1.Canvas.dashboard(this.game.head, this.game.length);
             if (!this.game.isAlive) {
                 clearInterval(this.loop);
                 canvas_1.Canvas.printFail();
