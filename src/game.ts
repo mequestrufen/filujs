@@ -99,19 +99,19 @@ export class Game extends events.EventEmitter {
     }
 
     left() {
-        this._head.direction = Direction.LEFT;
+        if (this._head.direction !== Direction.RIGHT) this._head.direction = Direction.LEFT;
     }
 
     right() {
-        this._head.direction = Direction.RIGHT;
+        if (this._head.direction !== Direction.LEFT) this._head.direction = Direction.RIGHT;
     }
 
     down() {
-        this._head.direction = Direction.DOWN;
+        if (this._head.direction !== Direction.UP) this._head.direction = Direction.DOWN;
     }
 
     up() {
-        this._head.direction = Direction.UP;
+        if (this._head.direction !== Direction.DOWN) this._head.direction = Direction.UP;
     }
 
     food(x?: number, y?: number) {     

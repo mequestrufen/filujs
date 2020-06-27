@@ -1,5 +1,5 @@
-import { Game, Point, Head, Direction } from '../src/game';
-import { Canvas } from "../src/canvas";
+import { Game, Point, Head, Direction } from './game';
+import { Canvas } from "./canvas";
 
 const timeSpan: number = 150;
 

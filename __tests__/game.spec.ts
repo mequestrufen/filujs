@@ -159,3 +159,39 @@ test('The snake onErase callback attached to erase event does not run when step 
 
     expect(onErase).not.toBeCalled();
 });
+
+test('The snake should not turn left when going right', () => {
+    let game = new Game();
+
+    game.right();
+    game.left();
+
+    expect(game.head.direction).toEqual(Direction.RIGHT);
+});
+
+test('The snake should not turn right when going left', () => {
+    let game = new Game();
+
+    game.left();
+    game.right();
+
+    expect(game.head.direction).toEqual(Direction.LEFT);
+});
+
+test('The snake should not turn down when going up', () => {
+    let game = new Game();
+
+    game.down();    
+
+    expect(game.head.direction).toEqual(Direction.UP);
+});
+
+test('The snake should not turn up when going down', () => {
+    let game = new Game();
+
+    game.right();
+    game.down();
+    game.up();
+
+    expect(game.head.direction).toEqual(Direction.DOWN);
+});

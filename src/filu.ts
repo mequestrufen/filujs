@@ -1,4 +1,4 @@
-import { GameLoop } from '../src/gameLoop';
+import { GameLoop } from './gameLoop';
 
 let gameLoop = new GameLoop();
 gameLoop.start();
