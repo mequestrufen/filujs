@@ -65,7 +65,7 @@ export class Game extends events.EventEmitter {
     step() {
         switch (this._head.direction) {
             case Direction.UP:
-                this._head.y--;            
+                this._head.y--;   
                 break;
     
             case Direction.DOWN:
@@ -89,7 +89,7 @@ export class Game extends events.EventEmitter {
         this._body.push(new Point(this._head.x, this._head.y));
 
         if(this._body.length > this.size) {
-            this.emit('erase');
+            this.emit('erase', this._body[0].x, this._body[0].y);
             this._body = this._body.slice(1);
         }
 

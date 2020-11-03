@@ -1,5 +1,6 @@
 import { Game, Point, Head, Direction } from './game';
 import { Canvas } from "./canvas";
+import { bot } from "./bot"; 
 
 const timeSpan: number = 150;
 
@@ -10,6 +11,30 @@ export class GameLoop {
     constructor() {
         this.game = new Game();
         Canvas.init();
+    }
+
+    private keyDown(code) {
+        switch(code) {
+            case 'ArrowUp':
+                this.game.up();
+                break;
+    
+            case 'ArrowDown':
+                this.game.down();
+                break;
+    
+            case 'ArrowLeft':
+                this.game.left();            
+                break;                        
+    
+            case 'ArrowRight':
+                this.game.right(); 
+                break;                     
+        }
+    }
+
+    private agent() {
+        this.keyDown(bot(this.game.target, this.game.head));
     }
     
     start() {
@@ -23,34 +48,20 @@ export class GameLoop {
             Canvas.drawSquare(food, 'green');
         });
         
-        this.game.on('erase', () => {
-            Canvas.eraseSquare(this.game.body[0]);
+        this.game.on('erase', (x, y) => {            
+            Canvas.eraseSquare(new Point(x, y));
         });
         
         document.addEventListener('keydown', (e) => {
-            switch(e.code) {
-                case 'ArrowUp':
-                    this.game.up();
-                    break;
-        
-                case 'ArrowDown':
-                    this.game.down();
-                    break;
-        
-                case 'ArrowLeft':
-                    this.game.left();            
-                    break;                        
-        
-                case 'ArrowRight':
-                    this.game.right(); 
-                    break;                     
-            }
+            this.keyDown(e.code);
         });
 
         this.game.food();
 
         this.loop = setInterval(() => {
             this.game.step();
+
+            this.agent();
 
             Canvas.dashboard(this.game.head, this.game.length);
             
