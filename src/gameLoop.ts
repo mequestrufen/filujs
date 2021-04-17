@@ -61,7 +61,7 @@ export class GameLoop {
         this.loop = setInterval(() => {
             this.game.step();
 
-            this.agent();
+            //this.agent();
 
             Canvas.dashboard(this.game.head, this.game.length);
             

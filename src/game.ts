@@ -29,7 +29,7 @@ export class Game extends events.EventEmitter {
     private size = 1;
     private _head: Head;
     private _body: Array<Point>;
-    
+   
     private _target: Point;
     private _alive: boolean = true;
 
