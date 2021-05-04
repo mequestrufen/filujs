@@ -2,7 +2,7 @@ import { Game, Point, Head, Direction } from './game';
 import { Canvas } from "./canvas";
 import { bot } from "./bot"; 
 
-const timeSpan: number = 150;
+const timeSpan: number = 150;  //ms between ticks
 
 export class GameLoop {
     private game: Game;
